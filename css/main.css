@@ -124,7 +124,7 @@ section
 	min-width:300px;
 	min-height:200px;
 	width:30%;
-	background:#FF0;
+	background:#3CF;
 	display:inline-block;
 	margin:1%;
 	vertical-align:top;
@@ -150,3 +150,31 @@ section
 	height:100%;
 }
 
+.video
+{
+text-align:center;
+padding:50px;	
+}
+
+.video iframe
+{
+	
+box-shadow:0px 0px 20px rgba(0,0,0,0.3);
+}
+
+.body
+{
+	
+color:#BBB;	
+padding:20px;
+padding-bottom:5px;
+font-family:"Raleway";
+font-size:18px;
+text-align:justify;
+}
+
+.soft-shadow
+{
+	
+box-shadow:0px 0px 20px rgba(0,0,0,0.3);
+}
