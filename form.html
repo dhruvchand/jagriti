@@ -21,33 +21,40 @@
     <div class="col-md-2"><a href="ourpartners.html">Our Partners</a></div>
     <div class="col-md-2"><a href="contactus.html">Contact Us</a></div>
   </div>
-  		<div class="accent">
+  		<div class="accent" style="margin-left:300px; margin-right:300px">
+  		
 			Thank you for your interest shown in The Jagriti Project.</br>
 			Please fill in the form given below, and your complaint will be registered. We assure you, those children WILL be helped.
 		<ol>
+			<!--
 		  <form>
 			  </br><li>Cateogry of Report<br></li>
 		  <input type="checkbox" name="complaint" value"child_abuse"> Child Abuse<br>
 		  <input type="checkbox" name="complaint" value"child_labour"> Child Labour<br>
 		  <input type="checkbox" name="complaint" value"child_prostitution"> Child Prostitution<br>
 		  <input type="checkbox" name="complaint" value"other"> Other<br>
-  
+  	
 		  </form>
+		  -->
 		  <form>
-		  <br><li>Address of Location</li>
-		  <input type="text" name="Line 1"><br>
-		  <input type="text" name="Line 2"><br>
-		  <input type="text" name="Line 3"><br>
-		  <input type="text" name="City"><br>
-	  	  </form>
+		  <br><li>Address of Location</li><br/>
+		  <textarea name="address" placeholder="Enter Address"></textarea>
+		  <br/>
+
 		  
 		  <br><li>Email ID</li>
-		  <input type="text" name="email"><br>
-	  </ol>
+		  <input type="text" name="email"><br><br/>
+		  <li>
+	  				Add Photo/Video.<br/><br/>
 
+	  			</li>
+	  			<input type="file" name="file">
+	  </ol>
+	  		<br/>
 	  		<h3>Optional Details</h3><br/>
-	  		These will help us contact you, if we have any questions related to the complaint and/or to inform you of the status of the complaint.
+	  		These will help us contact you, if we have any questions related to the complaint and/or to inform you of the status of the complaint. We will do so only if you wish to be contacted.
 	  		<ol>
+	  		
 	  		<form>
 	  			<br/><li>
 	  				Name
@@ -65,18 +72,19 @@
 	  				<br/><li>
 	  					Description
 	  				</li>
-	  				<textarea name="description">Write here</textarea>
+	  				<textarea name="description" placeholder="Any description that will help us"></textarea>
 	  			</form>
 	  			<br/>
-	  			<li>
-	  				Add Photo/Video.<br/>
-
-	  			</li>
-	  			<input type="file" name="file">
+	  			
 	  		</ol>
 	  		<br/><br/>
+	  		<div style="margin-left:450px">
 	  		<input type="submit" name="submit" value="Submit Form">
-	  	</div>
+	 		</div>
+	 		<br/>
+	 		<br/>
+	 		<br/>
+	    
 </div>
 </body>
 </html>
