@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>The Jagriti Project</title>
-</head>
+	<head>
+		<title>The Jagriti Project</title>
+	</head>
+
 <link rel="stylesheet" href="css/main.css"/>
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
@@ -11,21 +12,23 @@
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/formValidation.js"></script>
+
 <body>
 <div id="main-container">
-  <div id="menu" class="row">
+	<div id="menu" class="row">
 
-    <div class="col-md-2">Blog</div>
-    <div class="col-md-2"><a href="aboutus.html">About Us</a></div>
-    <div class="col-md-4" id="logo" data-goto="1"><a href="index.html"><img src="img/logo.png"/></a></div>
-    <div class="col-md-2"><a href="ourpartners.html">Our Partners</a></div>
-    <div class="col-md-2"><a href="contactus.html">Contact Us</a></div>
-  </div>
-  		<div class="accent" style="margin-left:300px; margin-right:300px">
+    	<div class="col-md-2">Blog</div>
+    	<div class="col-md-2"><a href="aboutus.html">About Us</a></div>
+    	<div class="col-md-4" id="logo" data-goto="1"><a href="index.html"><img src="img/logo.png"/></a></div>
+    	<div class="col-md-2"><a href="ourpartners.html">Our Partners</a></div>
+    	<div class="col-md-2"><a href="contactus.html">Contact Us</a></div>
+  	</div>
+
+  	<div class="accent" style="margin-left:300px; margin-right:300px">
   		
 			Thank you for your interest shown in The Jagriti Project.</br>
 			Please fill in the form given below, and your complaint will be registered. We assure you, those children WILL be helped.
-		<ol>
 			<!--
 		  <form>
 			  </br><li>Cateogry of Report<br></li>
@@ -36,51 +39,65 @@
   	
 		  </form>
 		  -->
-		  <form>
-		  <br><li>Address of Location</li><br/>
-		  <textarea name="address" placeholder="Enter Address"></textarea>
-		  <br/>
+		<form name="submit_form" onsubmit="return validateForm();" method="post" action="php/verify.php">
+		  	<ol>
+		  		<br><li>Address of Location</li><br/>
+		  		<textarea name="address" placeholder="Enter Address"></textarea>
+		  		<br/>
 
 		  
-		  <br><li>Email ID</li>
-		  <input type="text" name="email"><br><br/>
-		  <li>
-	  				Add Photo/Video.<br/><br/>
+		  		<br><li>Email ID</li>
+
+		  		<input type="text" name="email"><br><br/>
+
+		  		<li>
+	  					Add Photo/Video.(Adding photo/video increases the priority of the complaint)<br/><br/>
 
 	  			</li>
 	  			<input type="file" name="file">
-	  </ol>
+	  		
+	  		</ol>
 	  		<br/>
 	  		<h3>Optional Details</h3><br/>
+
 	  		These will help us contact you, if we have any questions related to the complaint and/or to inform you of the status of the complaint. We will do so only if you wish to be contacted.
+
 	  		<ol>
-	  		
-	  		<form>
-	  			<br/><li>
+	  			<br/>
+	  			<li>
 	  				Name
 	  			</li>
 	  			<input type="text" name="Name"><br/>
-	  			</form>
-	  			<form>
-	  				<br/><li>
-	  					Contact Number
-	  				</li>
-	  				<input type="text" name="Number"><br/>
+	  			
+	  			<br/>
+	  			<li>
+	  				Contact Number
+	  			</li>
+	  			<input type="text" name="Number"><br/>
 
-	  			</form>
-	  			<form>
-	  				<br/><li>
-	  					Description
-	  				</li>
-	  				<textarea name="description" placeholder="Any description that will help us"></textarea>
-	  			</form>
+	  	  		<br/>
+	  	  		<li>
+	  				Description
+	  			</li>
+	  			<textarea name="description" placeholder="Any description that will help us"></textarea>
+	  			
 	  			<br/>
 	  			
 	  		</ol>
+
+	  		<?php
+          		require_once('recaptchalib.php');
+          		$publickey = "your_public_key"; // you got this from the signup page
+          		echo recaptcha_get_html($publickey);
+        	?>
+
 	  		<br/><br/>
+
 	  		<div style="margin-left:450px">
 	  		<input type="submit" name="submit" value="Submit Form">
 	 		</div>
+
+	 	</form>
 	 		<br/>
 	 		<br/>
 	 		<br/>
@@ -88,5 +105,3 @@
 </div>
 </body>
 </html>
-  
-   
