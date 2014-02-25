@@ -1,6 +1,6 @@
 <?php
   require_once('recaptchalib.php');
-  $privatekey = "your_private_key";
+  $privatekey = "6Le3F-8SAAAAAMVsukqZkG2d4_JSDy47lEJ1EmXP";
   $resp = recaptcha_check_answer ($privatekey,
                                 $_SERVER["REMOTE_ADDR"],
                                 $_POST["recaptcha_challenge_field"],
@@ -12,5 +12,6 @@
          "(reCAPTCHA said: " . $resp->error . ")");
   } else {
     // Your code here to handle a successful verification
+    echo "Accepted. Going forward.";
   }
   ?>
