@@ -12,6 +12,35 @@
          "(reCAPTCHA said: " . $resp->error . ")");
   } else {
     // Your code here to handle a successful verification
-    echo "Accepted. Going forward.";
+
+    $address=$_POST['address'];
+    $emailid=$_POST['email'];
+    $description=$_POST['description'];
+    $name = $_POST['name'];
+    $number = $_POST['number'];
+
+    $username = "a2414660_jagriti";
+    $password = "projasha1234";
+
+
+    try {
+          $conn = new PDO('mysql:host=http://mysql3.000webhost.com;dbname=a2414660_maindb', $username, $password);
+         # $conn = new PDO('mysql:host=localhost:3036;dbname=jtest', $username, $password);
+          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+          # Prepare Query
+          $stmt = $conn->prepare('INSERT INTO USERS VALUES(:name, :number, :description, :email, :address, :file)');
+          $stmt->execute(array(
+              ':name' => $name
+              ':number' => $number
+              ':description' => $description
+              ':email' => $emailid
+              ':address' => $address
+              #':file'
+            ));
+          echo $stmt->rowCount();
+    } catch(PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
   }
   ?>
