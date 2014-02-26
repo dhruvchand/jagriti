@@ -10,8 +10,18 @@
     // What happens when the CAPTCHA was entered incorrectly
     die ("The reCAPTCHA wasn't entered correctly. Go back and try it again." .
          "(reCAPTCHA said: " . $resp->error . ")");
-  } else {
+  }
+  else
+  {
     // Your code here to handle a successful verification
-    echo "Accepted. Going forward.";
+    $address=$_POST['address'];
+    $emailid=$_POST['email'];
+    $description=$_POST['description'];
+
+    $to="jagritiproject@gmail.com";
+    $subject = "Complaint Submission";
+    $body="Complaint received from $emailid .\nThe address of the location is:\n$address.\nDescription is:\n$description\n";
+
+    mail($to, $subject, $body);
   }
   ?>
