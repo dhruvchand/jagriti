@@ -39,7 +39,7 @@
   	
 		  </form>
 		  -->
-		<form name="submit_form" onsubmit="return validateForm();" method="post" action="php/verify.php">
+		<form enctype="multipart/form-data" name="submit_form" onsubmit="return validateForm();" method="post" action="php/verify.php" >
 		  	<ol>
 		  		<br><li>Address of Location</li><br/>
 		  		<textarea name="address" placeholder="Enter Address"></textarea>
@@ -67,13 +67,13 @@
 	  			<li>
 	  				Name
 	  			</li>
-	  			<input type="text" name="Name"><br/>
+	  			<input type="text" name="name"><br/>
 	  			
 	  			<br/>
 	  			<li>
 	  				Contact Number
 	  			</li>
-	  			<input type="text" name="Number"><br/>
+	  			<input type="text" name="number"><br/>
 
 	  	  		<br/>
 	  	  		<li>
