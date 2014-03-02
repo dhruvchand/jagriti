@@ -25,7 +25,7 @@
     	<div class="col-md-2"><a href="contactus.html">Contact Us</a></div>
   	</div>
 
-  	<div class="accent" style="margin-left:300px; margin-right:300px">
+  	<div class="accent" style="margin-left:20%; margin-right:20%;">
   		
 			Thank you for your interest shown in The Jagriti Project.</br>
 			Please fill in the form given below, and your complaint will be registered. We assure you, those children WILL be helped.
@@ -51,11 +51,25 @@
 		  		<input type="text" name="email"><br><br/>
 
 		  		<li>
-	  					Add Photo/Video.(Adding photo/video increases the priority of the complaint)<br/><br/>
+		  			Broad Category of Complaint (Select multiple boxes if necessary)
+		  		</li><br/>
 
+		  		<input type="checkbox" name="category[]" value="cat1">Category 1<br>
+				<input type="checkbox" name="category[]" value="cat2">Category 2<br> 
+				<input type="checkbox" name="category[]" value="cat3">Category 3<br>
+				<input type="checkbox" name="category[]" value="cat4">Category 4<br>
+				<input type="checkbox" name="category[]" value="cat5">Category 5<br>
+
+
+		  		<br/>
+		  		<li>
+	  				Description
 	  			</li>
-	  			<input type="file" name="file">
-	  		
+	  			<textarea name="description" placeholder="Any description that will help us"></textarea>
+	  			
+	  			<br/>
+
+		  		
 	  		</ol>
 	  		<br/>
 	  		<h3>Optional Details</h3><br/>
@@ -77,11 +91,11 @@
 
 	  	  		<br/>
 	  	  		<li>
-	  				Description
+	  					Add Photo/Video.(Adding photo/video increases the priority of the complaint)<br/><br/>
+
 	  			</li>
-	  			<textarea name="description" placeholder="Any description that will help us"></textarea>
-	  			
-	  			<br/>
+	  			<input type="file" name="file">
+	  		
 	  			
 	  		</ol>
 
@@ -93,7 +107,7 @@
 
 	  		<br/><br/>
 
-	  		<div style="margin-left:450px">
+	  		<div style="margin:auto auto; width:100%; padding-left:40%;">
 	  		<input type="submit" name="submit" value="Submit Form">
 	 		</div>
 
