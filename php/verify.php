@@ -1,69 +1,3 @@
-
-<!--Mail Attachment code-->
-<?php 
-function mailAttachments($to, $from, $subject, $message, $attachments = array(), $headers = array(), $additional_parameters = '') {
-	$headers['From'] = $from;
-
-	// Define the boundray we're going to use to separate our data with.
-	$mime_boundary = '==MIME_BOUNDARY_' . md5(time());
-
-	// Define attachment-specific headers
-	$headers['MIME-Version'] = '1.0';
-	$headers['Content-Type'] = 'multipart/mixed; boundary="' . $mime_boundary . '"';
-
-	// Convert the array of header data into a single string.
-	$headers_string = '';
-	foreach($headers as $header_name => $header_value) {
-		if(!empty($headers_string)) {
-			$headers_string .= "\r\n";
-		}
-		$headers_string .= $header_name . ': ' . $header_value;
-	}
-
-	// Message Body
-	$message_string  = '--' . $mime_boundary;
-	$message_string .= "\r\n";
-	$message_string .= 'Content-Type: text/plain; charset="iso-8859-1"';
-	$message_string .= "\r\n";
-	$message_string .= 'Content-Transfer-Encoding: 7bit';
-	$message_string .= "\r\n";
-	$message_string .= "\r\n";
-	$message_string .= $message;
-	$message_string .= "\r\n";
-	$message_string .= "\r\n";
-
-	// Add attachments to message body
-	foreach($attachments as $local_filename => $attachment_filename) {
-		if(is_file($local_filename)) {
-			$message_string .= '--' . $mime_boundary;
-			$message_string .= "\r\n";
-			$message_string .= 'Content-Type: application/octet-stream; name="' . $attachment_filename . '"';
-			$message_string .= "\r\n";
-			$message_string .= 'Content-Description: ' . $attachment_filename;
-			$message_string .= "\r\n";
-
-			$fp = @fopen($local_filename, 'rb'); // Create pointer to file
-			$file_size = filesize($local_filename); // Read size of file
-			$data = @fread($fp, $file_size); // Read file contents
-			$data = chunk_split(base64_encode($data)); // Encode file contents for plain text sending
-
-			$message_string .= 'Content-Disposition: attachment; filename="' . $attachment_filename . '"; size=' . $file_size.  ';';
-			$message_string .= "\r\n";
-			$message_string .= 'Content-Transfer-Encoding: base64';
-			$message_string .= "\r\n\r\n";
-			$message_string .= $data;
-			$message_string .= "\r\n\r\n";
-		}
-	}
-
-	// Signal end of message
-	$message_string .= '--' . $mime_boundary . '--';
-
-	// Send the e-mail.
-	return mail($to, $subject, $message_string, $headers_string, $additional_parameters);
-}
-?>
-
 <!-- reCAPTCHA and mailer stuff -->
 <?php
   require_once('recaptchalib.php');
@@ -79,6 +13,10 @@ function mailAttachments($to, $from, $subject, $message, $attachments = array(),
          "(reCAPTCHA said: " . $resp->error . ")");
   } else {
     // Your code here to handle a successful verification
+
+
+    #Change to proper validation and upload code.
+    #Must prevent injection or malware here.
     $allowedExts = array("gif", "jpeg", "jpg", "png");
     $temp = explode(".", $_FILES["file"]["name"]);
     $extension = end($temp);
@@ -119,6 +57,11 @@ function mailAttachments($to, $from, $subject, $message, $attachments = array(),
   		echo "Invalid file";
   	}
 
+
+    #mailer code!
+  	require_once 'lib/swift_required.php';
+  	
+
     $address=$_POST['address'];
     $emailid=$_POST['email'];
     $description=$_POST['description'];
@@ -134,19 +77,39 @@ function mailAttachments($to, $from, $subject, $message, $attachments = array(),
 
     $username = "a2414660_jagriti";
     $password = "projasha1234";
+    $body="Complaint received from $emailid .\nThe address of the location is:\n$address.\nThe categories under which complaints has been received is:\n$categoryList\nDescription is:\n$description\n";
 
-    $attachments = array(
-		'/public-html/img/logo.png' => 'first-attachment.png',
-		);
+    #Temporary mailing code, until we get a new server :P
+    $to="jagritiproject@gmail.com";
+    $subject = "Complaint Submission";
+    $body="Complaint received from $emailid .\nThe address of the location is:\n$address.\nThe categories under which complaints has been received is:\n$categoryList\nDescription is:\n$description\n";
+
+    mail($to, $subject, $body);
+
+
+  	
+  	$message=Swift_Message::newInstance();
+  	$message->setSubject('Complaint Submission');
+  	$message->setBody($body);
+
+    #Change this to location of latest uploaded pic
+  	$attachment = Swift_Attachment::fromPath('../img/logo.png', 'image/png');
+  	$message->attach($attachment);
+
+  	$message->setFrom($emailid);
+
+    #change to her email id
+  	$message->setTo('jagritiproject@gmail.com');
+
+    #this will work on proper server :P
+    $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
+    ->setUsername('jagritiproject@gmail.com')
+    ->setPassword('projectasha');
+    $mailer = Swift_Mailer::newInstance($transport);
+  	$result=$mailer->send($message);
     #Mailer without attachment
     #Testing Attachment. Might result in delayed mail!
-    $to="jagritiproject@gmail.com";
-    $from=$emailid;
-    $headers="";
-    $subject = "Complaint Submission";
-    $body="Complaint received from $emailid .\nThe address of the location is:\n$address.\nThe categories under which complaints has been received is:\n$categoryList\nDescription is:\n$description\nattached are: print_r($attachments)\n";
-
-    $status= mailAttachments($to, $from, $subject, $body, $attachments, $headers);
+    
 ?>
 <!--Database Stuff-->
 <?php    
@@ -157,6 +120,8 @@ function mailAttachments($to, $from, $subject, $message, $attachments = array(),
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           # Prepare Query
+
+          #Add picture stuff also here!
           $stmt = $conn->prepare('INSERT INTO USERS VALUES(:address, :email, :description, :name, :num, :categories)');
           $stmt->execute(array(
               ':name' => $name,
@@ -170,6 +135,7 @@ function mailAttachments($to, $from, $subject, $message, $attachments = array(),
           #link to successful submission page
           header("Location: http://jagriti.site90.net/success.html"); /* Redirect browser */
 					exit();
+					echo "1";
     } catch(PDOException $e) {
     		echo "Form submission failed. Please try again.";
         echo 'Error: ' . $e->getMessage();
