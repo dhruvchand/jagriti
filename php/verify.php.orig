@@ -79,6 +79,8 @@ function mailAttachments($to, $from, $subject, $message, $attachments = array(),
          "(reCAPTCHA said: " . $resp->error . ")");
   } else {
     // Your code here to handle a successful verification
+<<<<<<< HEAD
+=======
     $allowedExts = array("gif", "jpeg", "jpg", "png");
     $temp = explode(".", $_FILES["file"]["name"]);
     $extension = end($temp);
@@ -118,12 +120,15 @@ function mailAttachments($to, $from, $subject, $message, $attachments = array(),
   	{
   		echo "Invalid file";
   	}
+>>>>>>> 5a397b3cc5bf4080eba2172702318039ae4462f5
 
     $address=$_POST['address'];
     $emailid=$_POST['email'];
     $description=$_POST['description'];
     $name = $_POST['name'];
     $number = $_POST['number'];
+<<<<<<< HEAD
+=======
     $category = $_POST['category'];
     $n=count($category);
 
@@ -131,10 +136,16 @@ function mailAttachments($to, $from, $subject, $message, $attachments = array(),
     for ($i=0; $i < $n; $i++) { 
       $categoryList .= $category[$i]."\n";
     }
+>>>>>>> 5a397b3cc5bf4080eba2172702318039ae4462f5
 
     $username = "a2414660_jagriti";
     $password = "projasha1234";
 
+<<<<<<< HEAD
+
+    try {
+          $conn = new PDO('mysql:host=http://mysql3.000webhost.com;dbname=a2414660_maindb', $username, $password);
+=======
     $attachments = array(
 		'/public-html/img/logo.png' => 'first-attachment.png',
 		);
@@ -153,10 +164,24 @@ function mailAttachments($to, $from, $subject, $message, $attachments = array(),
     #storing in database
     try {
           $conn = new PDO('mysql:host=mysql3.000webhost.com;dbname=a2414660_maindb', $username, $password);
+>>>>>>> 5a397b3cc5bf4080eba2172702318039ae4462f5
          # $conn = new PDO('mysql:host=localhost:3036;dbname=jtest', $username, $password);
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           # Prepare Query
+<<<<<<< HEAD
+          $stmt = $conn->prepare('INSERT INTO USERS VALUES(:name, :number, :description, :email, :address, :file)');
+          $stmt->execute(array(
+              ':name' => $name
+              ':number' => $number
+              ':description' => $description
+              ':email' => $emailid
+              ':address' => $address
+              #':file'
+            ));
+          echo $stmt->rowCount();
+    } catch(PDOException $e) {
+=======
           $stmt = $conn->prepare('INSERT INTO USERS VALUES(:address, :email, :description, :name, :num, :categories)');
           $stmt->execute(array(
               ':name' => $name,
@@ -172,6 +197,7 @@ function mailAttachments($to, $from, $subject, $message, $attachments = array(),
 					exit();
     } catch(PDOException $e) {
     		echo "Form submission failed. Please try again.";
+>>>>>>> 5a397b3cc5bf4080eba2172702318039ae4462f5
         echo 'Error: ' . $e->getMessage();
     }
   }
