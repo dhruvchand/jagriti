@@ -1,6 +1,3 @@
-
-<!--Mail Attachment code-->
-
 <!-- reCAPTCHA and mailer stuff -->
 <?php
   require_once('recaptchalib.php');
@@ -16,6 +13,10 @@
          "(reCAPTCHA said: " . $resp->error . ")");
   } else {
     // Your code here to handle a successful verification
+
+
+    #Change to proper validation and upload code.
+    #Must prevent injection or malware here.
     $allowedExts = array("gif", "jpeg", "jpg", "png");
     $temp = explode(".", $_FILES["file"]["name"]);
     $extension = end($temp);
@@ -55,6 +56,9 @@
   	{
   		echo "Invalid file";
   	}
+
+
+    #mailer code!
   	require_once 'lib/swift_required.php';
   	
 
@@ -75,29 +79,37 @@
     $password = "projasha1234";
     $body="Complaint received from $emailid .\nThe address of the location is:\n$address.\nThe categories under which complaints has been received is:\n$categoryList\nDescription is:\n$description\n";
 
-
-    {
-    	$transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
-  		->setUsername('jagritiproject@gmail.com')
-  		->setPassword('projectasha');
-    	$message=Swift_Message::newInstance();
-    	$mailer = Swift_Mailer::newInstance($transport);
-
-    	$message->setSubject('Complaint Submission');
-    	$message->setBody($body);
-    	$attachment = Swift_Attachment::fromPath('/public-html/img/logo.png', 'image/png');
-    	$message->attach($attachment);
-    	$message->setFrom($emailid);
-    	$message->setTo('jagritiproject@gmail.com');
-    	$result=$mailer->send($message);
-    }
-    #Mailer without attachment
-    #Testing Attachment. Might result in delayed mail!
+    #Temporary mailing code, until we get a new server :P
     $to="jagritiproject@gmail.com";
     $subject = "Complaint Submission";
     $body="Complaint received from $emailid .\nThe address of the location is:\n$address.\nThe categories under which complaints has been received is:\n$categoryList\nDescription is:\n$description\n";
 
     mail($to, $subject, $body);
+
+
+  	
+  	$message=Swift_Message::newInstance();
+  	$message->setSubject('Complaint Submission');
+  	$message->setBody($body);
+
+    #Change this to location of latest uploaded pic
+  	$attachment = Swift_Attachment::fromPath('../img/logo.png', 'image/png');
+  	$message->attach($attachment);
+
+  	$message->setFrom($emailid);
+
+    #change to her email id
+  	$message->setTo('jagritiproject@gmail.com');
+
+    #this will work on proper server :P
+    $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
+    ->setUsername('jagritiproject@gmail.com')
+    ->setPassword('projectasha');
+    $mailer = Swift_Mailer::newInstance($transport);
+  	$result=$mailer->send($message);
+    #Mailer without attachment
+    #Testing Attachment. Might result in delayed mail!
+    
 ?>
 <!--Database Stuff-->
 <?php    
@@ -108,6 +120,8 @@
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           # Prepare Query
+
+          #Add picture stuff also here!
           $stmt = $conn->prepare('INSERT INTO USERS VALUES(:address, :email, :description, :name, :num, :categories)');
           $stmt->execute(array(
               ':name' => $name,
@@ -119,8 +133,8 @@
               #':file'
             ));
           #link to successful submission page
-          #header("Location: http://jagriti.site90.net/success.html"); /* Redirect browser */
-					#exit();
+          header("Location: http://jagriti.site90.net/success.html"); /* Redirect browser */
+					exit();
 					echo "1";
     } catch(PDOException $e) {
     		echo "Form submission failed. Please try again.";
