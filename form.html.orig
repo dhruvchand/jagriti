@@ -25,8 +25,13 @@
     	<div class="col-md-2"><a href="contactus.html">Contact Us</a></div>
   	</div>
 
+<<<<<<< HEAD
+  	<div class="accent" style="margin-left:300px; margin-right:300px">
+
+=======
   	<div class="accent" style="margin-left:20%; margin-right:20%;">
   		
+>>>>>>> 5a397b3cc5bf4080eba2172702318039ae4462f5
 			Thank you for your interest shown in The Jagriti Project.</br>
 			Please fill in the form given below, and your complaint will be registered. We assure you, those children WILL be helped.
 			<!--
@@ -36,7 +41,7 @@
 		  <input type="checkbox" name="complaint" value"child_labour"> Child Labour<br>
 		  <input type="checkbox" name="complaint" value"child_prostitution"> Child Prostitution<br>
 		  <input type="checkbox" name="complaint" value"other"> Other<br>
-  	
+
 		  </form>
 		  -->
 		<form enctype="multipart/form-data" name="submit_form" onsubmit="return validateForm();" method="post" action="php/verify.php" >
@@ -45,7 +50,7 @@
 		  		<textarea name="address" placeholder="Enter Address"></textarea>
 		  		<br/>
 
-		  
+
 		  		<br><li>Email ID</li>
 
 		  		<input type="text" name="email"><br><br/>
@@ -65,11 +70,16 @@
 		  		<li>
 	  				Description
 	  			</li>
+<<<<<<< HEAD
+	  			<input type="file" name="file">
+
+=======
 	  			<textarea name="description" placeholder="Any description that will help us"></textarea>
 	  			
 	  			<br/>
 
 		  		
+>>>>>>> 5a397b3cc5bf4080eba2172702318039ae4462f5
 	  		</ol>
 	  		<br/>
 	  		<h3>Optional Details</h3><br/>
@@ -81,8 +91,13 @@
 	  			<li>
 	  				Name
 	  			</li>
+<<<<<<< HEAD
+	  			<input type="text" name="Name"><br/>
+
+=======
 	  			<input type="text" name="name"><br/>
 	  			
+>>>>>>> 5a397b3cc5bf4080eba2172702318039ae4462f5
 	  			<br/>
 	  			<li>
 	  				Contact Number
@@ -94,9 +109,16 @@
 	  					Add Photo (Adding photo increases the validity of the complaint)<br/><br/>
 
 	  			</li>
+<<<<<<< HEAD
+	  			<textarea name="description" placeholder="Any description that will help us"></textarea>
+
+	  			<br/>
+
+=======
 	  			<input type="file" name="file">
 	  		
 	  			
+>>>>>>> 5a397b3cc5bf4080eba2172702318039ae4462f5
 	  		</ol>
 
 	  		<?php
@@ -115,7 +137,7 @@
 	 		<br/>
 	 		<br/>
 	 		<br/>
-	    
+
 </div>
 </body>
 </html>
