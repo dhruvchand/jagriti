@@ -18,6 +18,13 @@
     $description=$_POST['description'];
     $name = $_POST['name'];
     $number = $_POST['number'];
+    $category = $_POST['category'];
+    $n=count($category);
+
+    $categoryList="";
+    for ($i=0; $i < $n; $i++) { 
+      $categoryList .= $category[$i]."\n";
+    }
 
     $username = "a2414660_jagriti";
     $password = "projasha1234";
@@ -25,7 +32,7 @@
     #Mailer without attachment
     $to="jagritiproject@gmail.com";
     $subject = "Complaint Submission";
-    $body="Complaint received from $emailid .\nThe address of the location is:\n$address.\nDescription is:\n$description\n";
+    $body="Complaint received from $emailid .\nThe address of the location is:\n$address.\nThe categories under which complaints has been received is:\n$categoryList.\nDescription is:\n$description\n";
 
     mail($to, $subject, $body);
 
@@ -37,13 +44,14 @@
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           # Prepare Query
-          $stmt = $conn->prepare('INSERT INTO USERS VALUES(:name, :num, :description, :email, :address)');
+          $stmt = $conn->prepare('INSERT INTO USERS VALUES(:address, :email, :description, :name, :num, :categories)');
           $stmt->execute(array(
               ':name' => $name,
               ':num' => $number,
               ':description' => $description,
               ':email' => $emailid,
               ':address' => $address,
+              ':categories' => $categoryList,
               #':file'
             ));
           echo $stmt->rowCount();
