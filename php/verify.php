@@ -11,51 +11,65 @@
     // What happens when the CAPTCHA was entered incorrectly
     die ("The reCAPTCHA wasn't entered correctly. Go back and try it again." .
          "(reCAPTCHA said: " . $resp->error . ")");
-  } else {
+  }
+  else //Code for the file upload
+  {
     // Your code here to handle a successful verification
-
-
-    #Change to proper validation and upload code.
     #Must prevent injection or malware here.
+
+    function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $randomString;
+    }
+
+    $picName=generateRandomString();
+
     $allowedExts = array("gif", "jpeg", "jpg", "png");
     $temp = explode(".", $_FILES["file"]["name"]);
     $extension = end($temp);
-		if ((($_FILES["file"]["type"] == "image/gif")
-		|| ($_FILES["file"]["type"] == "image/jpeg")
-		|| ($_FILES["file"]["type"] == "image/jpg")
-		|| ($_FILES["file"]["type"] == "image/pjpeg")
-		|| ($_FILES["file"]["type"] == "image/x-png")
-		|| ($_FILES["file"]["type"] == "image/png"))
-		&& ($_FILES["file"]["size"] < 20000)
-		&& in_array($extension, $allowedExts))
-  	{
-  		if ($_FILES["file"]["error"] > 0)
-    	{
-    		echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
-    	}
-  		else
-    	{
-    		echo "Upload: " . $_FILES["file"]["name"] . "<br>";
-    		echo "Type: " . $_FILES["file"]["type"] . "<br>";
-    		echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
-    		echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
+    if ((($_FILES["file"]["type"] == "image/gif")
+    || ($_FILES["file"]["type"] == "image/jpeg")
+    || ($_FILES["file"]["type"] == "image/jpg")
+    || ($_FILES["file"]["type"] == "image/pjpeg")
+    || ($_FILES["file"]["type"] == "image/x-png")
+    || ($_FILES["file"]["type"] == "image/png"))
+    && ($_FILES["file"]["size"] < 2000000)
+    && in_array($extension, $allowedExts))
+    {
+      if ($_FILES["file"]["error"] > 0)
+        {
+        echo "Error: " . $_FILES["file"]["error"] . "<br>";
+        }
+      else
+        {
+        $picName.=".".$extension;
+        $_FILES["file"]["name"]=$picName;
 
-		    if (file_exists("upload/" . $_FILES["file"]["name"]))
-   		  {
-      			echo $_FILES["file"]["name"] . " already exists. ";
-     		}
-    		else
-      	{
-      			move_uploaded_file($_FILES["file"]["tmp_name"],
-      			"upload/" . $_FILES["file"]["name"]);
-      			echo "Stored in: " . "upload/" . $_FILES["file"]["name"];
-      	}
-    	}
-  	}
-		else
-  	{
-  		echo "Invalid file";
-  	}
+        echo "Upload: " . $_FILES["file"]["name"] . "<br>";
+        echo "Type: " . $_FILES["file"]["type"] . "<br>";
+        echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+        echo "Stored in: " . $_FILES["file"]["tmp_name"];
+         if (file_exists("upload/" . $_FILES["file"]["name"]))
+        {
+        echo $_FILES["file"]["name"] . " already exists. ";
+        }
+      else
+        {
+        echo "Entered else\n";
+        move_uploaded_file($_FILES["file"]["tmp_name"],
+        "upload/" . $_FILES["file"]["name"]);
+        echo "Stored in: " . "upload/" . $_FILES["file"]["name"];
+        }
+        }
+      }
+    else
+      {
+      echo "Invalid file";
+      }
 
 
     #mailer code!
@@ -82,9 +96,9 @@
     #Temporary mailing code, until we get a new server :P
     $to="jagritiproject@gmail.com";
     $subject = "Complaint Submission";
-    $body="Complaint received from $emailid .\nThe address of the location is:\n$address.\nThe categories under which complaints has been received is:\n$categoryList\nDescription is:\n$description\n";
+    #$body="Complaint received from $emailid .\nThe address of the location is:\n$address.\nThe categories under which complaints has been received is:\n$categoryList\nDescription is:\n$description\n";
 
-    mail($to, $subject, $body);
+    #mail($to, $subject, $body);
 
 
   	
@@ -93,7 +107,8 @@
   	$message->setBody($body);
 
     #Change this to location of latest uploaded pic
-  	$attachment = Swift_Attachment::fromPath('../img/logo.png', 'image/png');
+  	$picName='upload/'.$picName;
+    $attachment = Swift_Attachment::fromPath($picName, $_FILES["file"]["type"]);
   	$message->attach($attachment);
 
   	$message->setFrom($emailid);
@@ -104,7 +119,7 @@
     #this will work on proper server :P
     $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
     ->setUsername('jagritiproject@gmail.com')
-    ->setPassword('projectasha');
+    ->setPassword('bachpanjagriti12nitk');
     $mailer = Swift_Mailer::newInstance($transport);
   	$result=$mailer->send($message);
     #Mailer without attachment
@@ -122,7 +137,7 @@
           # Prepare Query
 
           #Add picture stuff also here!
-          $stmt = $conn->prepare('INSERT INTO USERS VALUES(:address, :email, :description, :name, :num, :categories)');
+          $stmt = $conn->prepare('INSERT INTO USERS VALUES(:address, :email, :description, :name, :num, :categories, :picture)');
           $stmt->execute(array(
               ':name' => $name,
               ':num' => $number,
@@ -130,15 +145,17 @@
               ':email' => $emailid,
               ':address' => $address,
               ':categories' => $categoryList,
+              ':picture' => $picName,
               #':file'
             ));
           #link to successful submission page
           header("Location: http://jagriti.site90.net/success.html"); /* Redirect browser */
 					exit();
-					echo "1";
+					#echo "1";
     } catch(PDOException $e) {
-    		echo "Form submission failed. Please try again.";
-        echo 'Error: ' . $e->getMessage();
+        header("Location: http://jagriti.site90.net/failure.html");
+    		#echo "Form submission failed. Please try again.";
+        #echo 'Error: ' . $e->getMessage();
     }
   }
   ?>
