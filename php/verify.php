@@ -1,7 +1,7 @@
 <!-- reCAPTCHA and mailer stuff -->
 <?php
   require_once('recaptchalib.php');
-  $privatekey = "6Le3F-8SAAAAAMVsukqZkG2d4_JSDy47lEJ1EmXP";
+  $privatekey = "6Leuiu8SAAAAANMOTv3wEggrv7WMgP38or2tnKLl";
   $resp = recaptcha_check_answer ($privatekey,
                                 $_SERVER["REMOTE_ADDR"],
                                 $_POST["recaptcha_challenge_field"],
@@ -37,7 +37,7 @@
     || ($_FILES["file"]["type"] == "image/pjpeg")
     || ($_FILES["file"]["type"] == "image/x-png")
     || ($_FILES["file"]["type"] == "image/png"))
-    && ($_FILES["file"]["size"] < 2000000)
+    && ($_FILES["file"]["size"] < 7000000)
     && in_array($extension, $allowedExts))
     {
       if ($_FILES["file"]["error"] > 0)
@@ -73,9 +73,10 @@
 
 
     #mailer code!
-  	require_once 'lib/swift_required.php';
-  	
-
+    echo "checking require swift library";
+  	require_once '../lib/swift_required.php';
+  	echo "got swift library";
+  
     $address=$_POST['address'];
     $emailid=$_POST['email'];
     $description=$_POST['description'];
@@ -89,8 +90,8 @@
       $categoryList .= $category[$i]."\n";
     }
 
-    $username = "a2414660_jagriti";
-    $password = "projasha1234";
+    $username = "jagriti";
+    $password = "projectasha";
     $body="Complaint received from $emailid .\nThe address of the location is:\n$address.\nThe categories under which complaints has been received is:\n$categoryList\nDescription is:\n$description\n";
 
     #Temporary mailing code, until we get a new server :P
@@ -108,20 +109,35 @@
 
     #Change this to location of latest uploaded pic
   	$picName='upload/'.$picName;
+    try
+    {
     $attachment = Swift_Attachment::fromPath($picName, $_FILES["file"]["type"]);
   	$message->attach($attachment);
-
+      
   	$message->setFrom($emailid);
 
     #change to her email id
   	$message->setTo('jagritiproject@gmail.com');
-
+    echo "Something before smtp\n";
     #this will work on proper server :P
-    $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
-    ->setUsername('jagritiproject@gmail.com')
-    ->setPassword('bachpanjagriti12nitk');
+
+    #change this to swift mail transport
+    echo "random echo\n";
+    $transport = Swift_MailTransport::newInstance();
+    echo "not 1\n";
     $mailer = Swift_Mailer::newInstance($transport);
-  	$result=$mailer->send($message);
+    echo "not 2\n";
+    $result=$mailer->send($message);
+    echo "not 3\n";
+    }
+    catch(Swift_IoException $e)
+    {
+        echo "no file attached\n";
+        mail($to, $subject, $body);
+    }
+  	
+
+    echo "mail sent\n";
     #Mailer without attachment
     #Testing Attachment. Might result in delayed mail!
     
@@ -130,14 +146,18 @@
 <?php    
     #storing in database
     try {
-          $conn = new PDO('mysql:host=mysql3.000webhost.com;dbname=a2414660_maindb', $username, $password);
+          echo "before mysql\n";
+          $conn = new PDO('mysql:host=localhost;dbname=jagriti', $username, $password);
+          echo "after mysql\n";
          # $conn = new PDO('mysql:host=localhost:3036;dbname=jtest', $username, $password);
+          echo "something\n";
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+          echo "something after set attribute\n";
           # Prepare Query
 
           #Add picture stuff also here!
-          $stmt = $conn->prepare('INSERT INTO USERS VALUES(:address, :email, :description, :name, :num, :categories, :picture)');
+          echo "inserting into table\n";
+          $stmt = $conn->prepare('INSERT INTO CONTENTS VALUES(:address, :email, :description, :name, :num, :categories, :picture)');
           $stmt->execute(array(
               ':name' => $name,
               ':num' => $number,
@@ -148,14 +168,17 @@
               ':picture' => $picName,
               #':file'
             ));
+          echo "before exit\n";
           #link to successful submission page
-          header("Location: http://jagriti.site90.net/success.html"); /* Redirect browser */
+          header("Location: http://projectjagriti.org/success.html"); /* Redirect browser */
 					exit();
 					#echo "1";
     } catch(PDOException $e) {
-        header("Location: http://jagriti.site90.net/failure.html");
+        echo 'Error: ' . $e->getMessage();
+        header("Location: http://projectjagriti.org/failure.html");
+        exit();
     		#echo "Form submission failed. Please try again.";
-        #echo 'Error: ' . $e->getMessage();
+        
     }
   }
   ?>
