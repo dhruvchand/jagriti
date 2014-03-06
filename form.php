@@ -54,12 +54,15 @@
 		  			Broad Category of Complaint (Select multiple boxes if necessary)
 		  		</li><br/>
 
-		  		<input type="checkbox" name="category[]" value="cat1">&nbspCategory 1<br>
-				<input type="checkbox" name="category[]" value="cat2">&nbspCategory 2<br> 
-				<input type="checkbox" name="category[]" value="cat3">&nbspCategory 3<br>
-				<input type="checkbox" name="category[]" value="cat4">&nbspCategory 4<br>
-				<input type="checkbox" name="category[]" value="cat5">&nbspCategory 5<br>
-
+		  		<input type="checkbox" name="category[]" value="Physical Abuse">&nbspPhysical Abuse<br>
+				<input type="checkbox" name="category[]" value="Sexual Abuse">&nbspSexual Abuse<br> 
+				<input type="checkbox" name="category[]" value="Emotional Abuse">&nbspEmotional Abuse<br>
+				<input type="checkbox" name="category[]" value="Neglect">&nbspNeglect<br>
+				<input type="checkbox" name="category[]" value="Child Marriage">&nbspChild Marriage<br>
+				<input type="checkbox" name="category[]" value="Child Prostitution">&nbspChild Prostitution<br>
+				<input type="checkbox" name="category[]" value="Child Exploitation">&nbspChild Exploitation<br>
+				<input type="checkbox" name="category[]" value="Child Labour">&nbspChild Labour<br>
+				
 
 		  		<br/>
 		  		<li>
