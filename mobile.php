@@ -1,23 +1,6 @@
-<!-- reCAPTCHA and mailer stuff -->
 <?php
-  require_once('recaptchalib.php');
-  $privatekey = "6Leuiu8SAAAAANMOTv3wEggrv7WMgP38or2tnKLl";
-  $resp = recaptcha_check_answer ($privatekey,
-                                $_SERVER["REMOTE_ADDR"],
-                                $_POST["recaptcha_challenge_field"],
-                                $_POST["recaptcha_response_field"]);
 
-  if (!$resp->is_valid) {
-    // What happens when the CAPTCHA was entered incorrectly
-    die ("The reCAPTCHA wasn't entered correctly. Go back and try it again." .
-         "(reCAPTCHA said: " . $resp->error . ")");
-  }
-  else //Code for the file upload
-  {
-    // Your code here to handle a successful verification
-    #Must prevent injection or malware here.
-
-    function generateRandomString($length = 10) {
+	function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $randomString = '';
     for ($i = 0; $i < $length; $i++) {
@@ -28,67 +11,46 @@
 
     $picName=generateRandomString();
 
-    $allowedExts = array("gif", "jpeg", "jpg", "png");
-    $temp = explode(".", $_FILES["file"]["name"]);
-    $extension = end($temp);
-    if ((($_FILES["file"]["type"] == "image/gif")
-    || ($_FILES["file"]["type"] == "image/jpeg")
-    || ($_FILES["file"]["type"] == "image/jpg")
-    || ($_FILES["file"]["type"] == "image/pjpeg")
-    || ($_FILES["file"]["type"] == "image/x-png")
-    || ($_FILES["file"]["type"] == "image/png"))
-    && ($_FILES["file"]["size"] < 7000000)
-    && in_array($extension, $allowedExts))
-    {
-      if ($_FILES["file"]["error"] > 0)
-        {
-        echo "Error: " . $_FILES["file"]["error"] . "<br>";
-        }
-      else
-        {
-        $picName.=".".$extension;
-        $_FILES["file"]["name"]=$picName;
+	#$_FILES["file"]["tmp_name"];
+	$emailid=$_POST['email']; 
+	$description=$_POST['description']; 
+	$address=$_POST['address']; 
+	$name="";
+	$number="";
+	$categoryList="";
 
-        echo "Upload: " . $_FILES["file"]["name"] . "<br>";
-        echo "Type: " . $_FILES["file"]["type"] . "<br>";
-        echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
-        echo "Stored in: " . $_FILES["file"]["tmp_name"];
-         if (file_exists("upload/" . $_FILES["file"]["name"]))
+
+	$temp = explode(".", $_FILES["file"]["name"]);
+    $extension = end($temp);
+	$picName.=".".$extension;
+    $_FILES["file"]["name"]=$picName;
+	if (file_exists("php/upload/" . $_FILES["file"]["name"]))
         {
         echo $_FILES["file"]["name"] . " already exists. ";
         }
-      else
+    else
         {
         echo "Entered else\n";
         move_uploaded_file($_FILES["file"]["tmp_name"],
-        "upload/" . $_FILES["file"]["name"]);
+        "php/upload/" . $_FILES["file"]["name"]);
         echo "Stored in: " . "upload/" . $_FILES["file"]["name"];
         }
-        }
-      }
-    else
-      {
-      echo "Invalid file";
-      }
 
-
-    #mailer code!
     echo "checking require swift library";
-  	require_once '../lib/swift_required.php';
+  	require_once 'lib/swift_required.php';
   	echo "got swift library";
   
-    $address=$_POST['address'];
-    $emailid=$_POST['email'];
-    $description=$_POST['description'];
-    $name = $_POST['name'];
-    $number = $_POST['number'];
-    $category = $_POST['category'];
-    $n=count($category);
+ 
+    #$name = $_POST['name'];
+    #$number = $_POST['number'];
+    #$category = $_POST['category'];
+    #$n=count($category);
 
-    $categoryList="";
-    for ($i=0; $i < $n; $i++) { 
-      $categoryList .= $category[$i]."\n";
-    }
+    #$categoryList="";
+    #for ($i=0; $i < $n; $i++)
+    #{ 
+     # $categoryList .= $category[$i]."\n";
+    #}
 
     $username = "jagriti";
     $password = "projectasha";
@@ -108,7 +70,7 @@
   	$message->setBody($body);
 
     #Change this to location of latest uploaded pic
-  	$picName='upload/'.$picName;
+  	$picName='php/upload/'.$picName;
     try
     {
     $attachment = Swift_Attachment::fromPath($picName, $_FILES["file"]["type"]);
@@ -135,16 +97,7 @@
         echo "no file attached\n";
         mail($to, $subject, $body);
     }
-  	
 
-    echo "mail sent\n";
-    #Mailer without attachment
-    #Testing Attachment. Might result in delayed mail!
-    
-?>
-<!--Database Stuff-->
-<?php    
-    #storing in database
     try {
           echo "before mysql\n";
           $conn = new PDO('mysql:host=localhost;dbname=jagriti', $username, $password);
@@ -174,12 +127,12 @@
           header("Location: http://projectjagriti.org/index.html"); /* Redirect browser */
 					exit();
 					#echo "1";
-    } catch(PDOException $e) {
+    	}
+    catch(PDOException $e) {
         echo 'Error: ' . $e->getMessage();
         header("Location: http://projectjagriti.org/failure.html");
         exit();
     		#echo "Form submission failed. Please try again.";
         
     }
-  }
-  ?>
+?>
