@@ -71,6 +71,7 @@ padding-bottom:5px;
 font-family:"Raleway";
 font-size:20px;
 border-bottom:thin solid #333 1px;
+margin-top:30px;	
 }
 
 #main-container
@@ -216,6 +217,11 @@ text-align:center;
 padding:50px;
 }
 
+
+input
+{
+	font-family:"tahoma",sans-serif;
+}
 .video iframe
 {
 

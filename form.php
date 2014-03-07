@@ -77,7 +77,7 @@
 	  		<br/>
 	  		<h3>Optional Details</h3><br/>
 
-	  		These will help us contact you, if we have any questions related to the complaint and/or to inform you of the status of the complaint. We will do so only if you wish to be contacted.
+	  		These will help us contact you, if we have any questions related to your report and/or to inform you of the status of your report. We will do so only if you wish to be contacted.
 
 	  		<ol>
 	  			<br/>
