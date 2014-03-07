@@ -16,11 +16,18 @@ body
 	height:100%;
 }
 
+.big{
 
+color:#BBB;
+padding:15px;
+padding-bottom:5px;
+font-family:"Raleway";
+border-bottom:thin solid #333 1px;
+}
 
 .heading{
 
-color:#BBB;	
+color:#BBB;
 padding:15px;
 padding-bottom:5px;
 font-family:"Raleway";
@@ -28,9 +35,37 @@ font-size:42px;
 border-bottom:thin solid #333 1px;
 }
 
+h1 .big
+{
+	color:#BBB;
+	padding:15px;
+	padding-bottom:5px;
+	font-family:"Raleway";
+	font-size:40px;
+	border-bottom:thin solid #333 1px;
+}
+
+h4 .big
+{
+	color:#BBB;
+	padding:15px;
+	padding-bottom:5px;
+	font-family:"Raleway";
+	font-size:35px;
+}
+h5 .big
+{
+	color:#BBB;
+	padding:15px;
+	padding-bottom:5px;
+	font-family:"Raleway";
+	font-size:30px;
+}
+
+
 .accent{
 
-color:#BBB;	
+color:#BBB;
 padding:15px;
 padding-bottom:5px;
 font-family:"Raleway";
@@ -41,13 +76,13 @@ border-bottom:thin solid #333 1px;
 #main-container
 {
 	min-width:100%;
-	min-height:100%;   
+	min-height:100%;
 	padding: 0 15px;
 	background:url(../img/bg.png);
 }
 #menu
 {
-	
+
 	color:#666;
 	line-height:80px;
 background-image:url(../img/menu-bg.png);
@@ -62,14 +97,14 @@ z-index:1;
 	font-family: 'Open Sans', cursive;
 	font-weight:lighter;
 	transition: all 0.5s;
-    -webkit-transition: all 0.5s; 
+    -webkit-transition: all 0.5s;
 }
 
 #menu div:hover
 {
 
 background-color:rgba(0,0,0,0.1);
-	
+
 }
 
 #logo
@@ -98,7 +133,32 @@ section
 	background-position:center;
 	padding:20px;
 	padding-top:20px;
+}h1 .heading
+{
+	color:#BBB;
+	padding:15px;
+	padding-bottom:5px;
+	font-family:"Raleway";
+	font-size:35px;
 }
+
+h4 .heading
+{
+	color:#BBB;
+	padding:15px;
+	padding-bottom:5px;
+	font-family:"Raleway";
+	font-size:25px;
+}
+h5 .heading
+{
+	color:#BBB;
+	padding:15px;
+	padding-bottom:5px;
+	font-family:"Raleway";
+	font-size:20px;
+}
+
 
 #home .jumbotron .container
 {
@@ -153,19 +213,19 @@ section
 .video
 {
 text-align:center;
-padding:50px;	
+padding:50px;
 }
 
 .video iframe
 {
-	
+
 box-shadow:0px 0px 20px rgba(0,0,0,0.3);
 }
 
 .body
 {
-	
-color:#BBB;	
+
+color:#BBB;
 padding:20px;
 padding-bottom:5px;
 font-family:"Raleway";
@@ -175,6 +235,6 @@ text-align:justify;
 
 .soft-shadow
 {
-	
+
 box-shadow:0px 0px 20px rgba(0,0,0,0.3);
 }
