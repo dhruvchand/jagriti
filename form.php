@@ -25,7 +25,7 @@
     	<a href="contactus.html"><div class="col-md-2">Contact Us</div></a>
   	</div>
 
-  	<div class="accent" style="margin-left:20%; margin-right:20%;">
+  	<div class="accent" style="margin:auto auto; width:720px;">
   		
 			Thank you for your interest shown in The Jagriti Project.</br>
 			Please fill in the form given below, and your complaint will be registered. We assure you, those children WILL be helped.

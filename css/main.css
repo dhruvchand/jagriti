@@ -129,7 +129,7 @@ section
 	height:375px;
 	color:#FFF;
 	background-color:rgba(0,0,0,0.3);
-	background-image:url(../img/TPA.jpg);
+	background-image:url(../img/CLI1.jpg);
 	background-size:cover;
 	background-position:center;
 	padding:20px;
@@ -184,13 +184,14 @@ h5 .heading
 {
 	min-width:300px;
 	min-height:200px;
-	width:30%;
-	background:#3CF;
+	width:98%;
+	background:#F6F7DC;
 	display:inline-block;
 	margin:1%;
 	vertical-align:top;
 	padding:20px;
 	border:solid 4px #fff;
+	font-family: 'Raleway';
 }
 
 
