@@ -17,7 +17,7 @@
 	$address=$_POST['address']; 
 	$name="";
 	$number="";
-	$categoryList="";
+	$categoryList=$_POST['categories'];
 
 
 	$temp = explode(".", $_FILES["file"]["name"]);

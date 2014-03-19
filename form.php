@@ -28,7 +28,7 @@
   	<div class="accent" style="margin-left:20%; margin-right:20%;">
   		
 			Thank you for your interest shown in The Jagriti Project.</br>
-			Please fill in the form given below, and your complaint will be registered. We assure you, those children WILL be helped.
+			Please fill in the form given below, and your complaint will be registered. We assure you, those children <b>will</b> be helped.
 			<!--
 		  <form>
 			  </br><li>Cateogry of Report<br></li>
@@ -46,7 +46,7 @@
 		  		<br/>
 
 		  
-		  		<br><li>Email ID</li>
+		  		<br><li>Email ID</li><br/>
 
 		  		<input type="text" placeholder="Your email address" name="email"><br><br/>
 
@@ -54,20 +54,20 @@
 		  			Broad Category of Complaint (Select multiple boxes if necessary)
 		  		</li><br/>
 
-		  		<input type="checkbox" name="category[]" value="Physical Abuse">&nbspPhysical Abuse<br>
-				<input type="checkbox" name="category[]" value="Sexual Abuse">&nbspSexual Abuse<br> 
-				<input type="checkbox" name="category[]" value="Emotional Abuse">&nbspEmotional Abuse<br>
-				<input type="checkbox" name="category[]" value="Neglect">&nbspNeglect<br>
-				<input type="checkbox" name="category[]" value="Child Marriage">&nbspChild Marriage<br>
-				<input type="checkbox" name="category[]" value="Child Prostitution">&nbspChild Prostitution<br>
-				<input type="checkbox" name="category[]" value="Child Exploitation">&nbspChild Exploitation<br>
-				<input type="checkbox" name="category[]" value="Child Labour">&nbspChild Labour<br>
+		  		<input type="checkbox" name="category[]" value="Physical Abuse">&nbsp;Physical Abuse<br>
+				<input type="checkbox" name="category[]" value="Sexual Abuse">&nbsp;Sexual Abuse<br> 
+				<input type="checkbox" name="category[]" value="Emotional Abuse">&nbsp;Emotional Abuse<br>
+				<input type="checkbox" name="category[]" value="Neglect">&nbsp;Neglect<br>
+				<input type="checkbox" name="category[]" value="Child Marriage">&nbsp;Child Marriage<br>
+				<input type="checkbox" name="category[]" value="Child Prostitution">&nbsp;Child Prostitution<br>
+				<input type="checkbox" name="category[]" value="Child Exploitation">&nbsp;Child Exploitation<br>
+				<input type="checkbox" name="category[]" value="Child Labour">&nbsp;Child Labour<br>
 				
 
 		  		<br/>
 		  		<li>
 	  				Description
-	  			</li>
+	  			</li><br/>
 	  			<textarea name="description" placeholder="Any description that will help us"></textarea>
 	  			
 	  			<br/>
@@ -83,13 +83,13 @@
 	  			<br/>
 	  			<li>
 	  				Name
-	  			</li>
+	  			</li><br/>
 	  			<input type="text" name="name"><br/>
 	  			
 	  			<br/>
 	  			<li>
 	  				Contact Number
-	  			</li>
+	  			</li><br/>
 	  			<input type="text" name="number"><br/>
 
 	  	  		<br/>
@@ -98,6 +98,7 @@
 
 	  			</li>
 	  			<input type="file" name="file" id="file">
+	  			<br/>
 	  		
 	  			
 	  		</ol>
